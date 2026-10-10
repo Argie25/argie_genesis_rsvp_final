@@ -4,16 +4,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Argie &amp; Genesis | Wedding RSVP</title>
-  <meta name="description" content="Wedding RSVP for Argie and Genesis — October 15, 2026.">
+
+  <title>You're Invited! | Argie &amp; Genesis</title>
+
+  <meta name="description"
+    content="Join us as we celebrate our wedding on October 15, 2026, in Urdaneta, Pangasinan. Open your invitation and RSVP.">
+
+  <!-- Messenger and Facebook link preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Argie &amp; Genesis Wedding">
+  <meta property="og:title" content="You're Invited! | Argie &amp; Genesis">
+
+  <meta property="og:description"
+    content="With love, we invite you to celebrate our wedding on October 15, 2026. Open your invitation and RSVP.">
+
+  <meta property="og:url" content="https://argie25.github.io/argie_genesis_rsvp_final/">
+
+  <meta property="og:image" content="https://argie25.github.io/argie_genesis_rsvp_final/assets/wedding-preview.jpg">
+
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Argie and Genesis wedding invitation with sunflowers and dusty-blue flowers">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  <!-- Envelope styles are scoped so the existing stylesheet can stay as-is. -->
+
   <style>
+    #weddingInvitation .invite-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .invitation-flowers {
+      position: absolute;
+      width: clamp(130px, 28vw, 310px);
+      pointer-events: none;
+      opacity: .9;
+    }
+
+    .invitation-flowers.left {
+      left: -35px;
+      bottom: -20px;
+    }
+
+    .invitation-flowers.right {
+      right: -35px;
+      top: -20px;
+      transform: rotate(180deg);
+    }
+
+    .envelope-flowers {
+      position: absolute;
+      left: -20px;
+      bottom: -18px;
+      width: 38%;
+      z-index: 7;
+      pointer-events: none;
+    }
+
+    .music-control {
+      position: fixed;
+      right: 18px;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 1000;
+      border: 1px solid #d7c4a5;
+      border-radius: 40px;
+      background: #fffdf8;
+      color: #3d5267;
+      padding: 12px 18px;
+      font: 500 13px 'DM Sans', sans-serif;
+      box-shadow: 0 4px 20px #3d526726;
+      cursor: pointer;
+    }
+
+    .music-control[hidden] {
+      display: none !important;
+    }
+
+    .music-control:focus-visible {
+      outline: 3px solid #6f8faf;
+      outline-offset: 4px;
+    }
+
+    footer {
+      padding-bottom: 85px;
+    }
+
+    .music-status {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    .google-rsvp {
+      min-width: 0;
+      width: 100%;
+    }
+
     #weddingInvitation[hidden] {
       display: none !important;
     }
@@ -188,7 +284,7 @@
       pointer-events: none;
     }
 
-    @media (prefers-reduced-motion:reduce) {
+    @media (prefers-reduced-motion: reduce) {
 
       #weddingInvitation,
       #weddingInvitation * {
@@ -199,55 +295,104 @@
 </head>
 
 <body>
-  <!-- Hidden by default: the website stays accessible when JavaScript is off. -->
+
+  <!-- Opening invitation -->
   <div id="weddingInvitation" hidden role="dialog" aria-modal="true" aria-labelledby="invitationTitle"
     aria-describedby="invitationHint">
+
+    <img class="invitation-flowers left" src="assets/floral-minimal.png" alt="" aria-hidden="true">
+
+    <img class="invitation-flowers right" src="assets/floral-minimal.png" alt="" aria-hidden="true">
+
     <div class="invite-inner">
       <p class="invite-eyebrow">A special invitation for you</p>
-      <h2 class="invite-title" id="invitationTitle">Argie &amp; Genesis</h2>
-      <p class="invite-date">October 15, 2026 · Urdaneta, Pangasinan</p>
+
+      <h2 class="invite-title" id="invitationTitle">
+        Argie &amp; Genesis
+      </h2>
+
+      <p class="invite-date">
+        October 15, 2026 · Urdaneta, Pangasinan
+      </p>
+
       <button id="openInvitation" type="button" aria-label="Open Argie and Genesis's wedding invitation">
+
         <span class="envelope-back" aria-hidden="true"></span>
-        <span class="invite-letter" aria-hidden="true"><span class="letter-small">You're invited to our
-            wedding</span><span class="letter-names">Argie &amp; Genesis</span><span class="letter-small">With love,
-            always</span></span>
-        <span class="envelope-pocket" aria-hidden="true"></span><span class="envelope-bottom"
-          aria-hidden="true"></span><span class="envelope-flap" aria-hidden="true"></span><span class="wax-seal"
-          aria-hidden="true">A &amp; G</span>
+
+        <span class="invite-letter" aria-hidden="true">
+          <span class="letter-small">You're invited to our wedding</span>
+          <span class="letter-names">Argie &amp; Genesis</span>
+          <span class="letter-small">With love, always</span>
+        </span>
+
+        <span class="envelope-pocket" aria-hidden="true"></span>
+        <span class="envelope-bottom" aria-hidden="true"></span>
+        <span class="envelope-flap" aria-hidden="true"></span>
+        <span class="wax-seal" aria-hidden="true">A &amp; G</span>
+
+        <img class="envelope-flowers" src="assets/floral-minimal.png" alt="" aria-hidden="true">
       </button>
-      <p class="invite-hint" id="invitationHint">Click or tap the envelope to open your invitation.</p>
+
+      <p class="invite-hint" id="invitationHint">
+        Click or tap the envelope to open your invitation.
+      </p>
     </div>
   </div>
+
   <script>
     (() => {
-      const overlay = document.getElementById('weddingInvitation');
-      const button = document.getElementById('openInvitation');
+      const overlay = document.getElementById("weddingInvitation");
+      const button = document.getElementById("openInvitation");
       const root = document.documentElement;
       let opening = false;
+
       overlay.hidden = false;
-      root.classList.add('invitation-pending');
-      const setPageInert = (value) => {
-        for (const selector of ['header.hero', 'main', 'footer']) {
+      root.classList.add("invitation-pending");
+
+      const setPageInert = value => {
+        for (const selector of ["header.hero", "main", "footer"]) {
           const element = document.querySelector(selector);
           if (element) element.inert = value;
         }
       };
-      document.addEventListener('DOMContentLoaded', () => { setPageInert(true); button.focus({ preventScroll: true }); });
-      button.addEventListener('keydown', (event) => { if (event.key === 'Tab') { event.preventDefault(); button.focus(); } });
-      button.addEventListener('click', () => {
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setPageInert(true);
+        button.focus({ preventScroll: true });
+      });
+
+      button.addEventListener("keydown", event => {
+        if (event.key === "Tab") {
+          event.preventDefault();
+          button.focus();
+        }
+      });
+
+      button.addEventListener("click", () => {
         if (opening) return;
         opening = true;
-        button.setAttribute('aria-disabled', 'true');
-        overlay.classList.add('is-opening');
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        button.setAttribute("aria-disabled", "true");
+        overlay.classList.add("is-opening");
+
+        const reduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
         window.setTimeout(() => {
-          overlay.classList.add('is-leaving');
+          overlay.classList.add("is-leaving");
+
           window.setTimeout(() => {
             overlay.hidden = true;
-            root.classList.remove('invitation-pending');
+            root.classList.remove("invitation-pending");
             setPageInert(false);
-            const heading = document.querySelector('.hero h1');
-            if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+
+            const heading = document.querySelector(".hero h1");
+
+            if (heading) {
+              heading.setAttribute("tabindex", "-1");
+              heading.focus({ preventScroll: true });
+            }
           }, reduced ? 0 : 650);
         }, reduced ? 0 : 1450);
       });
@@ -257,36 +402,53 @@
   <header class="hero" id="home">
     <nav class="navbar container">
       <a class="brand" href="#home">A &amp; G</a>
-      <button class="menu-toggle" type="button" aria-label="Open menu"
-        aria-expanded="false"><span></span><span></span><span></span></button>
-      <div class="nav-links"><a href="#story">Our Story</a><a href="#details">Details</a><a href="#rsvp">RSVP</a></div>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links">
+        <a href="#story">Our Story</a>
+        <a href="#details">Details</a>
+        <a href="#rsvp">RSVP</a>
+      </div>
     </nav>
+
     <div class="hero-content container">
       <p class="eyebrow">WE'RE GETTING MARRIED</p>
       <h1>Argie <small>&amp;</small> Genesis</h1>
       <p class="hero-date">October 15, 2026</p>
-      <p class="hero-location">Urdaneta, Pangasinan &bull; Philippines</p><a class="btn btn-primary" href="#rsvp">RSVP
-        NOW</a>
+      <p class="hero-location">
+        Urdaneta, Pangasinan &bull; Philippines
+      </p>
+      <a class="btn btn-primary" href="#rsvp">RSVP NOW</a>
     </div>
   </header>
+
   <main>
     <section class="section intro floral-section" id="story">
-      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true"
-        loading="lazy"><img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true"
-        loading="lazy">
+      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true" loading="lazy">
+
+      <img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true" loading="lazy">
+
       <div class="container narrow">
         <p class="eyebrow">WITH LOVE</p>
         <h2>Two hearts, one beautiful beginning.</h2>
-        <p>We are grateful to celebrate this special day with the people who have supported and loved us along the way.
-          Your presence will make our wedding even more meaningful.</p>
+        <p>
+          We are grateful to celebrate this special day with the people
+          who have supported and loved us along the way.
+          Your presence will make our wedding even more meaningful.
+        </p>
       </div>
     </section>
+
     <section class="section details-section" id="details">
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">THE DAY</p>
           <h2>Wedding Details</h2>
         </div>
+
         <div class="details-grid">
           <article class="detail-card">
             <div class="detail-icon">♡</div>
@@ -295,63 +457,195 @@
             <p>9:00 AM</p>
             <p>Urdaneta, Pangasinan</p>
           </article>
+
           <article class="detail-card">
             <div class="detail-icon">✦</div>
             <h3>Reception</h3>
             <p class="detail-main">October 15, 2026</p>
-            <p>11:30 PM</p><!-- CUSTOMIZE: Reception venue -->
+            <p>11:30 PM</p>
             <p>Reception Venue — To Be Announced</p>
           </article>
+
           <article class="detail-card">
             <div class="detail-icon">◇</div>
             <h3>Dress Code</h3>
             <p class="detail-main">Semi-Formal</p>
-            <p>Please wear semi-formal attire in mustard yellow, dusty blue, white, or beige. Dresses, collared shirts,
-              tailored trousers, and suits are welcome.</p>
+            <p>
+              Please wear semi-formal attire in mustard yellow,
+              dusty blue, white, or beige. Dresses, collared shirts,
+              tailored trousers, and suits are welcome.
+            </p>
           </article>
         </div>
+
         <figure class="attire-guide">
-          <div class="palette"><span><i style="background:#C99A2E"></i>Mustard Yellow</span><span><i
-                style="background:#6F8FAF"></i>Dusty Blue</span><span><i
-                style="background:#fff"></i>White</span><span><i style="background:#D7C4A5"></i>Beige</span></div>
+          <div class="palette">
+            <span>
+              <i style="background:#C99A2E"></i>Mustard Yellow
+            </span>
+            <span>
+              <i style="background:#6F8FAF"></i>Dusty Blue
+            </span>
+            <span>
+              <i style="background:#fff"></i>White
+            </span>
+            <span>
+              <i style="background:#D7C4A5"></i>Beige
+            </span>
+          </div>
+
           <img src="assets/guest-dress-code.jpg"
-            alt="Semi-formal guest dress code: collared shirts and trousers for gentlemen, sleeved dresses for ladies, in mustard yellow, dusty blue, white, and beige"
-            loading="lazy">
-          <figcaption>Outfit inspiration — choose a color or combine shades from our palette.</figcaption>
+            alt="Semi-formal guest dress code in mustard yellow, dusty blue, white, and beige" loading="lazy">
+
+          <figcaption>
+            Outfit inspiration — choose a color or combine shades
+            from our palette.
+          </figcaption>
         </figure>
       </div>
     </section>
+
     <section class="section rsvp-section floral-section" id="rsvp">
-      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true"
-        loading="lazy"><img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true"
-        loading="lazy">
+      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true" loading="lazy">
+
+      <img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true" loading="lazy">
+
       <div class="container rsvp-wrapper">
         <div class="rsvp-copy">
           <p class="eyebrow">PLEASE REPLY</p>
           <h2>Will you celebrate with us?</h2>
-          <p>Kindly let us know if you can join our special day. We look forward to celebrating with you.</p>
-          <p class="deadline"><strong>RSVP deadline:</strong> Please reply as soon as possible.</p>
+          <p>
+            Kindly let us know if you can join our special day.
+            We look forward to celebrating with you.
+          </p>
+          <p class="deadline">
+            <strong>RSVP deadline:</strong>
+            Please reply as soon as possible.
+          </p>
         </div>
-        <div style="width:100%;min-width:0;">
+
+        <div class="google-rsvp">
           <iframe
             src="https://docs.google.com/forms/d/e/1FAIpQLSeYvxvuj-T4crvUxUn6DJl0jz0nPtinBGb15-SSbBZq5L6OVA/viewform?embedded=true"
             title="Argie and Genesis Wedding RSVP" width="640" height="1000"
-            style="display:block;width:100%;border:0;">Loading…</iframe>
+            style="display:block;width:100%;height:1000px;border:0;background:#fff;border-radius:12px;">Loading…</iframe>
+
+          <p style="text-align:center;margin-top:16px;">
+            Having trouble with the form?
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYvxvuj-T4crvUxUn6DJl0jz0nPtinBGb15-SSbBZq5L6OVA/viewform"
+              target="_blank" rel="noopener noreferrer">
+              Open the RSVP form in a new tab
+            </a>.
+          </p>
         </div>
       </div>
     </section>
-    <section class="section contact-section">
-      <div class="container narrow">
-        <p class="eyebrow">QUESTIONS?</p>
-        <h2>We'd love to hear from you.</h2><!-- CUSTOMIZE: Email -->
-        <p>Contact us at <a href="mailto:your@email.com">your@email.com</a></p>
-      </div>
-    </section>
+
+
   </main>
+
   <footer>
-    <div class="container footer-content"><span>Argie &amp; Genesis</span><span>October 15, 2026</span></div>
+    <div class="container footer-content">
+      <span>Argie &amp; Genesis</span>
+      <span>October 15, 2026</span>
+    </div>
   </footer>
-  <script src="script.js"></script>
+
+  <!-- Put your MP3 file in assets/wedding-music.mp3 -->
+  <audio id="weddingMusic" loop preload="none" src="assets/wedding-music.mp3">
+  </audio>
+
+  <button class="music-control" id="musicToggle" type="button" hidden aria-label="Play background music">
+    ♫ Play music
+  </button>
+
+  <span class="music-status" id="musicStatus" role="status" aria-live="polite">
+  </span>
+
+  <script>
+    (() => {
+      const audio = document.getElementById("weddingMusic");
+      const toggle = document.getElementById("musicToggle");
+      const status = document.getElementById("musicStatus");
+
+      audio.volume = 0.3;
+
+      const update = () => {
+        toggle.textContent = audio.paused
+          ? "♫ Play music"
+          : "♫ Pause music";
+
+        toggle.setAttribute(
+          "aria-label",
+          audio.paused
+            ? "Play background music"
+            : "Pause background music"
+        );
+      };
+
+      const play = async () => {
+        try {
+          await audio.play();
+          status.textContent = "Background music playing.";
+        } catch (error) {
+          status.textContent = error.name === "NotAllowedError"
+            ? "Press Play music to start the song."
+            : "Music is unavailable. Please try again later.";
+        }
+
+        update();
+      };
+
+      audio.addEventListener("play", update);
+      audio.addEventListener("pause", update);
+
+      audio.addEventListener("error", () => {
+        toggle.textContent = "♫ Music unavailable";
+        status.textContent =
+          "Music is unavailable. Please try again later.";
+      });
+
+      toggle.addEventListener("click", () => {
+        if (audio.paused) {
+          play();
+        } else {
+          audio.pause();
+          status.textContent = "Background music paused.";
+        }
+      });
+
+      document.getElementById("openInvitation").addEventListener(
+        "click",
+        () => {
+          toggle.hidden = false;
+          play();
+        },
+        { once: true }
+      );
+    })();
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.querySelector(".menu-toggle");
+      const links = document.querySelector(".nav-links");
+
+      if (!toggle || !links) return;
+
+      toggle.addEventListener("click", () => {
+        const open = links.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+
+      links.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          links.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    });
+  </script>
+
 </body>
 
 </html>
