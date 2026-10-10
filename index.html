@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argie &amp; Genesis | Wedding RSVP</title>
+  <meta name="description" content="Wedding RSVP for Argie and Genesis — October 15, 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Envelope styles are scoped so the existing stylesheet can stay as-is. -->
+  <style>
+    #weddingInvitation[hidden] {
+      display: none !important;
+    }
+
+    html.invitation-pending,
+    html.invitation-pending body {
+      overflow: hidden;
+    }
+
+    #weddingInvitation {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse at top, #fffdf7, #f0e8dc);
+      color: #3d5267;
+      transition: opacity .65s ease, visibility .65s ease;
+    }
+
+    #weddingInvitation .invite-inner {
+      width: min(92vw, 560px);
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    #weddingInvitation .invite-eyebrow {
+      font: 500 11px/1.6 'DM Sans', sans-serif;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+
+    #weddingInvitation .invite-title {
+      font: 400 clamp(30px, 7vw, 48px)/1.2 'Playfair Display', serif;
+      margin: 0 0 12px;
+    }
+
+    #weddingInvitation .invite-date {
+      font: 400 14px/1.6 'DM Sans', sans-serif;
+      margin: 0 0 36px;
+    }
+
+    #openInvitation {
+      display: block;
+      position: relative;
+      width: min(78vw, 360px);
+      height: min(52vw, 240px);
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      perspective: 1100px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #openInvitation:focus-visible {
+      outline: 3px solid #3d5267;
+      outline-offset: 12px;
+    }
+
+    #openInvitation .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: #6f8faf;
+      border-radius: 6px;
+      box-shadow: 0 18px 45px #3d52672b;
+    }
+
+    #openInvitation .invite-letter {
+      position: absolute;
+      top: 10%;
+      left: 7%;
+      width: 86%;
+      height: 84%;
+      box-sizing: border-box;
+      padding: 22px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      background: #fffdf8;
+      border: 1px solid #e5d7bc;
+      color: #3d5267;
+      border-radius: 3px;
+      z-index: 2;
+      transition: transform .8s cubic-bezier(.22, .61, .36, 1) .55s;
+    }
+
+    #openInvitation .letter-small {
+      font: 500 10px/1.4 'DM Sans', sans-serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    #openInvitation .letter-names {
+      font: 400 clamp(21px, 5vw, 31px)/1.3 'Playfair Display', serif;
+    }
+
+    #openInvitation .envelope-pocket {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #88a4bf;
+      clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+      border-radius: 0 0 6px 6px;
+    }
+
+    #openInvitation .envelope-bottom {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      background: #9ab2c9;
+      clip-path: polygon(0 100%, 50% 44%, 100% 100%);
+      border-radius: 0 0 6px 6px;
+    }
+
+    #openInvitation .envelope-flap {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: #7898b7;
+      clip-path: polygon(0 0, 100% 0, 50% 57%);
+      transform-origin: top center;
+      backface-visibility: hidden;
+      transition: transform .7s ease;
+    }
+
+    #openInvitation .wax-seal {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #c99a2e;
+      border: 3px double #eed59a;
+      box-shadow: 0 3px 8px #3d526733;
+      color: #fff8df;
+      font: 400 17px 'Playfair Display', serif;
+      transition: opacity .25s, transform .35s;
+    }
+
+    #weddingInvitation .invite-hint {
+      font: 400 13px/1.6 'DM Sans', sans-serif;
+      margin: 26px 0 0;
+    }
+
+    #weddingInvitation.is-opening .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    #weddingInvitation.is-opening .wax-seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.75);
+    }
+
+    #weddingInvitation.is-opening .invite-letter {
+      transform: translateY(-55%);
+    }
+
+    #weddingInvitation.is-leaving {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      #weddingInvitation,
+      #weddingInvitation * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hidden by default: the website stays accessible when JavaScript is off. -->
+  <div id="weddingInvitation" hidden role="dialog" aria-modal="true" aria-labelledby="invitationTitle"
+    aria-describedby="invitationHint">
+    <div class="invite-inner">
+      <p class="invite-eyebrow">A special invitation for you</p>
+      <h2 class="invite-title" id="invitationTitle">Argie &amp; Genesis</h2>
+      <p class="invite-date">October 15, 2026 · Urdaneta, Pangasinan</p>
+      <button id="openInvitation" type="button" aria-label="Open Argie and Genesis's wedding invitation">
+        <span class="envelope-back" aria-hidden="true"></span>
+        <span class="invite-letter" aria-hidden="true"><span class="letter-small">You're invited to our
+            wedding</span><span class="letter-names">Argie &amp; Genesis</span><span class="letter-small">With love,
+            always</span></span>
+        <span class="envelope-pocket" aria-hidden="true"></span><span class="envelope-bottom"
+          aria-hidden="true"></span><span class="envelope-flap" aria-hidden="true"></span><span class="wax-seal"
+          aria-hidden="true">A &amp; G</span>
+      </button>
+      <p class="invite-hint" id="invitationHint">Click or tap the envelope to open your invitation.</p>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const overlay = document.getElementById('weddingInvitation');
+      const button = document.getElementById('openInvitation');
+      const root = document.documentElement;
+      let opening = false;
+      overlay.hidden = false;
+      root.classList.add('invitation-pending');
+      const setPageInert = (value) => {
+        for (const selector of ['header.hero', 'main', 'footer']) {
+          const element = document.querySelector(selector);
+          if (element) element.inert = value;
+        }
+      };
+      document.addEventListener('DOMContentLoaded', () => { setPageInert(true); button.focus({ preventScroll: true }); });
+      button.addEventListener('keydown', (event) => { if (event.key === 'Tab') { event.preventDefault(); button.focus(); } });
+      button.addEventListener('click', () => {
+        if (opening) return;
+        opening = true;
+        button.setAttribute('aria-disabled', 'true');
+        overlay.classList.add('is-opening');
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.setTimeout(() => {
+          overlay.classList.add('is-leaving');
+          window.setTimeout(() => {
+            overlay.hidden = true;
+            root.classList.remove('invitation-pending');
+            setPageInert(false);
+            const heading = document.querySelector('.hero h1');
+            if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+          }, reduced ? 0 : 650);
+        }, reduced ? 0 : 1450);
+      });
+    })();
+  </script>
+
+  <header class="hero" id="home">
+    <nav class="navbar container">
+      <a class="brand" href="#home">A &amp; G</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu"
+        aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-links"><a href="#story">Our Story</a><a href="#details">Details</a><a href="#rsvp">RSVP</a></div>
+    </nav>
+    <div class="hero-content container">
+      <p class="eyebrow">WE'RE GETTING MARRIED</p>
+      <h1>Argie <small>&amp;</small> Genesis</h1>
+      <p class="hero-date">October 15, 2026</p>
+      <p class="hero-location">Urdaneta, Pangasinan &bull; Philippines</p><a class="btn btn-primary" href="#rsvp">RSVP
+        NOW</a>
+    </div>
+  </header>
+  <main>
+    <section class="section intro floral-section" id="story">
+      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true"
+        loading="lazy"><img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true"
+        loading="lazy">
+      <div class="container narrow">
+        <p class="eyebrow">WITH LOVE</p>
+        <h2>Two hearts, one beautiful beginning.</h2>
+        <p>We are grateful to celebrate this special day with the people who have supported and loved us along the way.
+          Your presence will make our wedding even more meaningful.</p>
+      </div>
+    </section>
+    <section class="section details-section" id="details">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">THE DAY</p>
+          <h2>Wedding Details</h2>
+        </div>
+        <div class="details-grid">
+          <article class="detail-card">
+            <div class="detail-icon">♡</div>
+            <h3>Ceremony</h3>
+            <p class="detail-main">October 15, 2026</p>
+            <p>9:00 AM</p>
+            <p>Urdaneta, Pangasinan</p>
+          </article>
+          <article class="detail-card">
+            <div class="detail-icon">✦</div>
+            <h3>Reception</h3>
+            <p class="detail-main">October 15, 2026</p>
+            <p>11:30 PM</p><!-- CUSTOMIZE: Reception venue -->
+            <p>Reception Venue — To Be Announced</p>
+          </article>
+          <article class="detail-card">
+            <div class="detail-icon">◇</div>
+            <h3>Dress Code</h3>
+            <p class="detail-main">Semi-Formal</p>
+            <p>Please wear semi-formal attire in mustard yellow, dusty blue, white, or beige. Dresses, collared shirts,
+              tailored trousers, and suits are welcome.</p>
+          </article>
+        </div>
+        <figure class="attire-guide">
+          <div class="palette"><span><i style="background:#C99A2E"></i>Mustard Yellow</span><span><i
+                style="background:#6F8FAF"></i>Dusty Blue</span><span><i
+                style="background:#fff"></i>White</span><span><i style="background:#D7C4A5"></i>Beige</span></div>
+          <img src="assets/guest-dress-code.jpg"
+            alt="Semi-formal guest dress code: collared shirts and trousers for gentlemen, sleeved dresses for ladies, in mustard yellow, dusty blue, white, and beige"
+            loading="lazy">
+          <figcaption>Outfit inspiration — choose a color or combine shades from our palette.</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section rsvp-section floral-section" id="rsvp">
+      <img class="floral-corner floral-left" src="assets/floral-minimal.png" alt="" aria-hidden="true"
+        loading="lazy"><img class="floral-corner floral-right" src="assets/floral-minimal.png" alt="" aria-hidden="true"
+        loading="lazy">
+      <div class="container rsvp-wrapper">
+        <div class="rsvp-copy">
+          <p class="eyebrow">PLEASE REPLY</p>
+          <h2>Will you celebrate with us?</h2>
+          <p>Kindly let us know if you can join our special day. We look forward to celebrating with you.</p>
+          <p class="deadline"><strong>RSVP deadline:</strong> Please reply as soon as possible.</p>
+        </div>
+        <div style="width:100%;min-width:0;">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeYvxvuj-T4crvUxUn6DJl0jz0nPtinBGb15-SSbBZq5L6OVA/viewform?embedded=true"
+            title="Argie and Genesis Wedding RSVP" width="640" height="1000"
+            style="display:block;width:100%;border:0;">Loading…</iframe>
+        </div>
+      </div>
+    </section>
+    <section class="section contact-section">
+      <div class="container narrow">
+        <p class="eyebrow">QUESTIONS?</p>
+        <h2>We'd love to hear from you.</h2><!-- CUSTOMIZE: Email -->
+        <p>Contact us at <a href="mailto:your@email.com">your@email.com</a></p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container footer-content"><span>Argie &amp; Genesis</span><span>October 15, 2026</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
